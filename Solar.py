@@ -8,7 +8,7 @@ ctk.set_default_color_theme("blue")
 class aplicativo(ctk.CTk):
     def __init__(self):
         super().__init__()
-        
+        #self.arduino=serial.Serial("COM3",9600,timeout=1)
 
         self.title("Solar")
         self.attributes("-fullscreen",True)
@@ -26,10 +26,14 @@ class aplicativo(ctk.CTk):
         #self.relatorios()
         #self.configuracoes()
 
-#======Acima declaração do front-end
-#======Abaixo declaracao do back-end
+        #Acima declaração do front-end
+        #Abaixo declaracao do back-end
 
         #self.verificar_login()
+        #self.troca_tela()
+        #self.ativar_automatico(
+        #self.ativar_manual()
+        #self.sair_conta()
 
     def construir_login(self):
         self.janela_login=ctk.CTkFrame(self)
@@ -39,7 +43,7 @@ class aplicativo(ctk.CTk):
         #Criando e colocando plano de fundo
 
         #carregar imagem de fundo
-        self.imagem_fundo=ctk.CTkImage(dark_image=Image.open("imagens/planodefundo.png"),size=(self.winfo_screenwidth(),self.winfo_screenheight()))
+        self.imagem_fundo=ctk.CTkImage(dark_image=Image.open("imagens/PlanoDeFundo/planodefundo.png"),size=(self.winfo_screenwidth(),self.winfo_screenheight()))
 
         #Criando o fundo
         self.fundo_login=ctk.CTkLabel(self.janela_login,image=self.imagem_fundo,text="")
@@ -97,7 +101,6 @@ class aplicativo(ctk.CTk):
 
         #===============================================================================================
 
-
     def Criar_Conta(self):
         pass
 
@@ -117,23 +120,65 @@ class aplicativo(ctk.CTk):
     
     def barra_lateral(self):
         #Criei a Barra e defini o tamanho dela
-        self.Barra_lateral=ctk.CTkFrame(self.janela_principal,width=200,fg_color="white")
+        self.Barra_lateral=ctk.CTkFrame(self.janela_principal,width=200,fg_color="#E9E9E9")
         self.Barra_lateral.pack(side="left",fill="y")
 
         #============================================================================================
         #Criei um campo para o Norte da barra
-        self.Campo_norte_Barra=ctk.CTkFrame(self.Barra_lateral,fg_color="transparent")
-        self.Campo_norte_Barra.pack()
+        #self.Campo_norte_Barra=ctk.CTkFrame(self.Barra_lateral,fg_color="blue")
+        #self.Campo_norte_Barra.pack()
+
+        self.texto_Barra_Norte=ctk.CTkLabel(self.Barra_lateral, text="Solar", text_color="Black",font=ctk.CTkFont(size=15))
+        self.texto_Barra_Norte.pack(side="top",pady=(8,0))
 
         #============================================================================================
         #Criei um campo para o Central da barra
+
+
         self.Campo_Central_Barra=ctk.CTkFrame(self.Barra_lateral,fg_color="transparent")
         self.Campo_Central_Barra.pack()
+
+        self.criar_Separador_barra()
+
+        self.Texto_Barra_Central=ctk.CTkLabel(self.Barra_lateral,text="Status",text_color="#787878",font=ctk.CTkFont(size=15))
+        self.Texto_Barra_Central.pack(pady=(0,5))
+        #============================================================================================
+        #Load da imagem icone do botao, configuração do botao e setagem dele
+
+        self.icone_dashboard=ctk.CTkImage(dark_image=Image.open("imagens/icones/dashh.png"),size=(18,18))
+        self.botao_dashboard=ctk.CTkButton(self.Barra_lateral,text="DashBoard",width=190,height=36,anchor="w",corner_radius=10,border_spacing=12,fg_color="#E9E9E9",hover_color="#FFFFFF",text_color="#292929",font=ctk.CTkFont(size=13),image=self.icone_dashboard,command=lambda: self.troca_tela("DashBoard"))
+        self.botao_dashboard.pack(pady=5)
+
+        #============================================================================================
+        #Load da imagem icone do botao, configuração do botao e setagem dele
+        self.icone_diagnostico=ctk.CTkImage(dark_image=Image.open("imagens/icones/diagnostc.png"),size=(18,18))
+        self.botao_diagnostico=ctk.CTkButton(self.Barra_lateral,text="Diagnostico",width=190,height=36,anchor="w",corner_radius=10,border_spacing=12,fg_color="#E9E9E9",hover_color="#FFFFFF",text_color="#292929" ,font=ctk.CTkFont(size=13),image=self.icone_diagnostico, command=lambda: self.troca_tela("Diagnosticos"))
+        self.botao_diagnostico.pack(pady=5)
+
+        #============================================================================================
+        #Load da imagem icone do botao, configuração do botao e setagem dele
+        self.icone_relatorio=ctk.CTkImage(dark_image=Image.open("imagens/icones/relatory.png"),size=(18,18))
+        self.botao_relatorio=ctk.CTkButton(self.Barra_lateral,text="Relatorio",width=190,height=36,anchor="w",corner_radius=10,border_spacing=12,fg_color="#E9E9E9",hover_color="#FFFFFF",text_color="#292929" ,font=ctk.CTkFont(size=13),image=self.icone_relatorio)
+        self.botao_relatorio.pack(pady=5)
+
+        #============================================================================================
+        #Load da imagem icone do botao, configuração do botao e setagem dele
+        self.icone_Configuracoes=ctk.CTkImage(dark_image=Image.open("imagens/icones/settings.png"),size=(18,18))
+        self.botao_Configuracoes=ctk.CTkButton(self.Barra_lateral,text="Configurações",width=190,height=36,anchor="w",corner_radius=10,border_spacing=12,fg_color="#E9E9E9",hover_color="#FFFFFF",text_color="#292929" ,font=ctk.CTkFont(size=13),image=self.icone_Configuracoes)
+        self.botao_Configuracoes.pack(pady=5)
 
         #============================================================================================
         #Criei um campo para o Sul da barra
         self.Campo_Sul_Barra=ctk.CTkFrame(self.Barra_lateral,fg_color="transparent")
         self.Campo_Sul_Barra.pack()
+        self.criar_Separador_barra()
+
+
+        #============================================================================================
+        #Load da imagem icone do botao, configuração do botao e setagem dele
+        self.icone_Sair=ctk.CTkImage(dark_image=Image.open("imagens/icones/sair.png"),size=(18,18))
+        self.botao_Sair=ctk.CTkButton(self.Barra_lateral,text="Sair",width=80,height=30,fg_color="#E3E3E3",hover_color="#FFFFFF",text_color="#292929",corner_radius=12,command=self.sair_conta,image=self.icone_Sair)
+        self.botao_Sair.pack(pady=5)
 
     def dashboard(self):
         self.tela_dashboard=ctk.CTkFrame(self.area_principal)
@@ -152,23 +197,23 @@ class aplicativo(ctk.CTk):
         #================================================================
         #Criei os grids
 
-        self.quadro_1=ctk.CTkFrame(self.tela_dashboard)
-        self.quadro_1.grid(row=0,column=0,padx=10,pady=10, sticky="nsew")
+        self.quadro_1Dash=ctk.CTkFrame(self.tela_dashboard,fg_color="#E9E9E9")
+        self.quadro_1Dash.grid(row=0,column=0,padx=10,pady=10, sticky="nsew")
 
-        self.quadro_2=ctk.CTkFrame(self.tela_dashboard)
-        self.quadro_2.grid(row=0,column=1,padx=10,pady=10, sticky="nsew")
+        self.quadro_2Dash=ctk.CTkFrame(self.tela_dashboard,fg_color="#E9E9E9")
+        self.quadro_2Dash.grid(row=0,column=1,padx=10,pady=10, sticky="nsew")
 
-        self.quadro_3=ctk.CTkFrame(self.tela_dashboard)
-        self.quadro_3.grid(row=1,column=0,padx=10,pady=10, sticky="nsew")
+        self.quadro_3Dash=ctk.CTkFrame(self.tela_dashboard,fg_color="#E9E9E9")
+        self.quadro_3Dash.grid(row=1,column=0,padx=10,pady=10, sticky="nsew")
 
-        self.quadro_4=ctk.CTkFrame(self.tela_dashboard)
-        self.quadro_4.grid(row=1,column=1,padx=10,pady=10, sticky="nsew")
+        self.quadro_4Dash=ctk.CTkFrame(self.tela_dashboard,fg_color="#E9E9E9")
+        self.quadro_4Dash.grid(row=1,column=1,padx=10,pady=10, sticky="nsew")
 
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 1
-        self.Geracao_Potencia=ctk.CTkLabel(self.quadro_1,text="Geração de Energia (W)",font=ctk.CTkFont(size=50))
-        self.valor_Potencia=ctk.CTkLabel(self.quadro_1,text="0.0 W",font=ctk.CTkFont(size=30))
+        self.Geracao_Potencia=ctk.CTkLabel(self.quadro_1Dash,text="Geração de Energia (W)",font=ctk.CTkFont(size=50))
+        self.valor_Potencia=ctk.CTkLabel(self.quadro_1Dash,text="0.0 W",font=ctk.CTkFont(size=30))
 
         self.Geracao_Potencia.pack()
         self.valor_Potencia.pack()
@@ -177,8 +222,8 @@ class aplicativo(ctk.CTk):
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 2
 
-        self.angulo180=ctk.CTkLabel(self.quadro_2, text="Angulo do Servo: 0°",font=ctk.CTkFont(size=50))
-        self.angulo360=ctk.CTkLabel(self.quadro_2, text="Angulo do motor de Passo: 0°",font=ctk.CTkFont(size=30))
+        self.angulo180=ctk.CTkLabel(self.quadro_2Dash, text="Angulo do Servo: 0°",font=ctk.CTkFont(size=50))
+        self.angulo360=ctk.CTkLabel(self.quadro_2Dash, text="Angulo do motor de Passo: 0°",font=ctk.CTkFont(size=30))
 
         self.angulo180.pack()
         self.angulo360.pack()
@@ -187,19 +232,98 @@ class aplicativo(ctk.CTk):
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 3
 
-        self.Luminosidade_Cruz1=ctk.CTkLabel(self.quadro_3,text="Luminosidade do LDR 1:",font=ctk.CTkFont(size=20))
-        self.Luminosidade_Cruz2=ctk.CTkLabel(self.quadro_3,text="Luminosidade do LDR 2:",font=ctk.CTkFont(size=20))
-        self.Luminosidade_Cruz3=ctk.CTkLabel(self.quadro_3,text="Luminosidade do LDR 3:",font=ctk.CTkFont(size=20))
-        self.Luminosidade_Cruz4=ctk.CTkLabel(self.quadro_3,text="Luminosidade do LDR 4:",font=ctk.CTkFont(size=20))
+        self.Luminosidade_Cruz1=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 1:",font=ctk.CTkFont(size=20))
+        self.Luminosidade_Cruz2=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 2:",font=ctk.CTkFont(size=20))
+        self.Luminosidade_Cruz3=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 3:",font=ctk.CTkFont(size=20))
+        self.Luminosidade_Cruz4=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 4:",font=ctk.CTkFont(size=20))
 
         self.Luminosidade_Cruz1.pack()
         self.Luminosidade_Cruz2.pack()
         self.Luminosidade_Cruz3.pack()
         self.Luminosidade_Cruz4.pack()
 
+        #================================================================
+        #Inserção dos dados nos seus respectivos quadrantes
+        #Quadrante 4
+
+        self.botao_automatico=ctk.CTkButton(self.quadro_4Dash,text="Modo Automatico",text_color="black",fg_color="white",hover_color="black",width=400,height=50)
+        self.botao_automatico.pack(pady=10)
+
+        self.botao_manual=ctk.CTkButton(self.quadro_4Dash,text="Modo manual",text_color="black",fg_color="white",hover_color="black",width=400,height=50)
+        self.botao_manual.pack(pady=10)
 
     def diagnosticos(self):
-        pass
+        self.tela_diagnosticos=ctk.CTkFrame(self.area_principal)
+        self.tela_diagnosticos.pack(fill="both",expand=True)
+
+
+        #================================================================
+        #configurando as colunas
+        self.tela_diagnosticos.grid_columnconfigure(0,weight=1)
+        self.tela_diagnosticos.grid_columnconfigure(1, weight=1)
+
+        #================================================================
+        #configurando as linhas
+        self.tela_diagnosticos.grid_rowconfigure(0, weight=1)
+
+        self.quadro_1Diag=ctk.CTkFrame(self.tela_diagnosticos,fg_color="#E9E9E9")
+        #self.Calibracao_Titulo=ctk.CTkLabel(self.quadro_1Diag,text="Calibração",font=ctk.CTkFont(size=30))
+        #self.Calibracao_Titulo.pack()
+
+        self.quadro_1Diag.grid(row=0,column=0,padx=10,pady=10, sticky="nsew")
+        
+        self.quadro_2Diag=ctk.CTkFrame(self.tela_diagnosticos, fg_color="#E9E9E9")
+        self.quadro_2Diag.grid(row=0,column=1,padx=10,pady=10, sticky="nsew")
+
+        #Acima são os dois quadrantes principais (esquerda e direita)
+        #================================================================
+
+
+        #================================================================
+        #Abaixo são os subquadrantes dentro do quadro_1
+
+        self.quadro_1Diag.grid_columnconfigure(0,weight=1)
+        self.quadro_1Diag.grid_columnconfigure(1, weight=1)
+
+        self.quadro_1Diag.grid_rowconfigure(0, weight=1)
+        #================================================================
+        
+        self.subquadro_1=ctk.CTkFrame(self.quadro_1Diag,height=250,width=120,fg_color="#FFFEFE")
+        self.subquadro_1.grid(row=0,column=0, padx=10, pady=10)
+
+        self.subquadro__2=ctk.CTkFrame(self.quadro_1Diag,height=250,width=120,fg_color="#FFFEFE")
+        self.subquadro__2.grid(row=0, column=1,padx=10,pady=10)
+        
+
+        #================================================================
+        #Dados referente ao Motor de Passo
+        self.Calibracao_Motor=ctk.CTkFrame(self.subquadro_1)
+    
+        self.Motor_dePassoTexto=ctk.CTkLabel(self.subquadro_1,text="Motor de passo",text_color="black",font=ctk.CTkFont(size=25))
+        self.Motor_dePassoTexto.pack()
+
+        self.Motor_dePassoSubTexto=ctk.CTkLabel(self.subquadro_1,text="Retorna ao ponto zero",text_color="black",font=ctk.CTkFont(size=15))
+        self.Motor_dePassoSubTexto.pack()
+
+        self.Motor_dePassoBarr=ctk.CTkProgressBar(self.subquadro_1, width=400)
+        self.Motor_dePassoBarr.pack()
+
+        self.Calibracao_Motor=ctk.CTkButton(self.subquadro_1,width=100, height=20,text="Calibrar Motor",font=ctk.CTkFont(size=18),fg_color="transparent",hover_color="Black",text_color="#B3B3B3",)
+        self.Calibracao_Motor.pack(pady=10)
+
+        #================================================================
+        #Dados referente ao Servo Motor
+        self.Motor_ServoTexto=ctk.CTkLabel(self.subquadro__2,text="Motor Servo",text_color="black",font=ctk.CTkFont(size=25))
+        self.Motor_ServoTexto.pack()
+        
+        self.Motor_ServoSubTexto=ctk.CTkLabel(self.subquadro__2,text="Retorna ao angulo Inicial",text_color="black",font=ctk.CTkFont(size=15))
+        self.Motor_ServoSubTexto.pack()
+        
+        self.Motor_ServoBarr=ctk.CTkProgressBar(self.subquadro__2, width=400)
+        self.Motor_ServoBarr.pack()
+
+        self.Calibracao_Servo=ctk.CTkButton(self.subquadro__2,width=100,height=20,text="Calibrar Servo",font=ctk.CTkFont(size=18),fg_color="transparent",hover_color="Black",text_color="#B3B3B3")
+        self.Calibracao_Servo.pack(pady=10)
 
     def relatorios(self):
         pass
@@ -209,7 +333,16 @@ class aplicativo(ctk.CTk):
 
 #=================================================================================
 #=================================Acima front end=================================
-#=================================Abaixo backend==================================
+#=================================Abaixo Esteticas Extras=========================
+#=================================================================================
+
+    def criar_Separador_barra(self):
+        self.separador=ctk.CTkFrame(self.Barra_lateral,height=3,corner_radius=0,fg_color="#E3E3E3")
+        self.separador.pack(fill="x",padx=12,pady=15)
+
+#=================================================================================
+#=================================Acima Esteticas Extras==========================
+#=================================Abaixo BackEnd==================================
 #=================================================================================
 
     def verificar_login(self):
@@ -221,6 +354,35 @@ class aplicativo(ctk.CTk):
             self.tela_principal()
         else:
             print("Nome ou senha incorreto")
+
+    def troca_tela(self,tela):
+        for widget in self.area_principal.winfo_children():
+            widget.destroy()
+
+        if tela=="DashBoard":
+            self.dashboard()
+            print("deu certo")
+
+        elif tela=="Diagnosticos":
+            self.diagnosticos()
+            print("Deu certo Diagnosticos")
+
+        elif tela=="Relatorios":
+            self.relatorios()
+
+        elif tela=="configuracoes":
+            self.configuracoes()
+
+
+    #def ativar_automatico(self):
+        #self.arduino.write(b'A')
+
+    #def ativar_manual(self):
+        #self.arduino.write(b'M')
+
+    def sair_conta(self):
+        self.janela_principal.destroy()
+        self.construir_login()
 
 janela=aplicativo()
 janela.mainloop()
