@@ -59,7 +59,7 @@ class aplicativo(ctk.CTk):
         self.campo_norte=ctk.CTkFrame(self.janela_login,fg_color="transparent")
         self.campo_norte.pack(side="top",pady=(220,0))
 
-        self.Campo_texto_Marca=ctk.CTkLabel(self.campo_norte,text="Solar",font=ctk.CTkFont(size=64),text_color="white")
+        self.Campo_texto_Marca=ctk.CTkLabel(self.campo_norte,text="Solar",text_color="white",font=ctk.CTkFont(size=60,family="Segoe UI",weight="bold"))
         self.Campo_texto_Marca.pack(pady=(0,120)) #padding apenas no sul
 
         #==============================================================================================
@@ -70,21 +70,21 @@ class aplicativo(ctk.CTk):
         self.campo_central.place(relx=0.5,rely=0.4,anchor="center")
 
         #campo de texto usuario
-        self.Campo_nome=ctk.CTkEntry(self.campo_central,placeholder_text="Usuario",width=400,height=50,font=ctk.CTkFont(size=16))
+        self.Campo_nome=ctk.CTkEntry(self.campo_central,placeholder_text="Usuario",width=400,height=50,font=ctk.CTkFont(size=16),corner_radius=25,placeholder_text_color="#e8e8e8",border_width=0)
         self.Campo_nome.pack(pady=(0,5))
 
         #campo de senha usuario
-        self.Campo_senha=ctk.CTkEntry(self.campo_central,placeholder_text="Senha",width=400,height=50,font=ctk.CTkFont(size=16))
+        self.Campo_senha=ctk.CTkEntry(self.campo_central,placeholder_text="Senha",width=400,height=50,font=ctk.CTkFont(size=16),corner_radius=25,placeholder_text_color="#e8e8e8",border_width=0,show="*")
         self.Campo_senha.pack(pady=(0,5))
 
         #botao entrar
-        self.Botao_Entrar=ctk.CTkButton(self.campo_central,command=self.verificar_login,text="Entrar",text_color="black",fg_color="white",hover_color="black",width=400,height=50,bg_color="transparent",border_color="black")
-        self.Botao_Entrar.pack()
+        self.Botao_Entrar=ctk.CTkButton(self.campo_central,command=self.verificar_login,text="Entrar",text_color="black",fg_color="#E9E9E9",hover_color="#FFFFFF",width=400,height=50,bg_color="transparent",border_color="black",corner_radius=25)
+        self.Botao_Entrar.pack(pady=(0,15))
 
         self.Texto_NaoTemConta=ctk.CTkLabel(self.campo_central,text="Não possui uma conta?")
         self.Texto_NaoTemConta.pack()
         
-        self.Botao_CriarConta=ctk.CTkButton(self.campo_central,text="Criar",text_color="black",fg_color="white",hover_color="black",width=400,height=50)
+        self.Botao_CriarConta=ctk.CTkButton(self.campo_central,text="Criar",text_color="black",fg_color="transparent",hover_color="#FFFFFF",width=400,height=50,corner_radius=25)
         self.Botao_CriarConta.pack(pady=(0,0))
 
         #================================================================================================
@@ -128,7 +128,7 @@ class aplicativo(ctk.CTk):
         #self.Campo_norte_Barra=ctk.CTkFrame(self.Barra_lateral,fg_color="blue")
         #self.Campo_norte_Barra.pack()
 
-        self.texto_Barra_Norte=ctk.CTkLabel(self.Barra_lateral, text="Solar", text_color="Black",font=ctk.CTkFont(size=15))
+        self.texto_Barra_Norte=ctk.CTkLabel(self.Barra_lateral, text="Solar", text_color="#e1e1e1",font=ctk.CTkFont(size=15,family="Segoe UI",weight="bold"))
         self.texto_Barra_Norte.pack(side="top",pady=(8,0))
 
         #============================================================================================
@@ -136,7 +136,7 @@ class aplicativo(ctk.CTk):
 
 
         self.Campo_Central_Barra=ctk.CTkFrame(self.Barra_lateral,fg_color="transparent")
-        self.Campo_Central_Barra.pack()
+        self.Campo_Central_Barra.pack(side="top",fill="x")
 
         self.criar_Separador_barra()
 
@@ -170,7 +170,7 @@ class aplicativo(ctk.CTk):
         #============================================================================================
         #Criei um campo para o Sul da barra
         self.Campo_Sul_Barra=ctk.CTkFrame(self.Barra_lateral,fg_color="transparent")
-        self.Campo_Sul_Barra.pack()
+        self.Campo_Sul_Barra.pack(side="bottom",fill="x",pady=10)
         self.criar_Separador_barra()
 
 
@@ -212,35 +212,43 @@ class aplicativo(ctk.CTk):
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 1
-        self.Geracao_Potencia=ctk.CTkLabel(self.quadro_1Dash,text="Geração de Energia (W)",font=ctk.CTkFont(size=50))
-        self.valor_Potencia=ctk.CTkLabel(self.quadro_1Dash,text="0.0 W",font=ctk.CTkFont(size=30))
+        self.Geracao_Potencia=ctk.CTkLabel(self.quadro_1Dash,text="Geração de Energia (W)",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
+        self.valor_Potencia=ctk.CTkLabel(self.quadro_1Dash,text="0.0 W",font=ctk.CTkFont(size=15))
 
-        self.Geracao_Potencia.pack()
+        self.Geracao_Potencia.pack(pady=10)
         self.valor_Potencia.pack()
 
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 2
+        self.Texto_Angulacao=ctk.CTkLabel(self.quadro_2Dash,text="Angulação dos Motores",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
+        self.Texto_Angulacao.pack(pady=10)
 
-        self.angulo180=ctk.CTkLabel(self.quadro_2Dash, text="Angulo do Servo: 0°",font=ctk.CTkFont(size=50))
-        self.angulo360=ctk.CTkLabel(self.quadro_2Dash, text="Angulo do motor de Passo: 0°",font=ctk.CTkFont(size=30))
+        self.angulo180=ctk.CTkLabel(self.quadro_2Dash, text="Angulo do Servo: 0°",font=ctk.CTkFont(size=15))
+        self.angulo360=ctk.CTkLabel(self.quadro_2Dash, text="Angulo do motor de Passo: 0°",font=ctk.CTkFont(size=15))
 
-        self.angulo180.pack()
+        self.angulo180.pack(pady=(0,5))
         self.angulo360.pack()
 
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 3
+        self.Texto_TituloLuminosidadeLDRCruz=ctk.CTkLabel(self.quadro_3Dash,text="Lumens",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
+        self.Texto_TituloLuminosidadeLDRCruz.pack(pady=(10,1))
+
+        self.Texto_subTituloLuminosidadeLDRCruz=ctk.CTkLabel(self.quadro_3Dash,text="Quantidade de lúmens incidindo na Cruz",font=ctk.CTkFont(size=10))
+        self.Texto_subTituloLuminosidadeLDRCruz.pack(pady=(0,14))
 
         self.Luminosidade_Cruz1=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 1:",font=ctk.CTkFont(size=20))
         self.Luminosidade_Cruz2=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 2:",font=ctk.CTkFont(size=20))
         self.Luminosidade_Cruz3=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 3:",font=ctk.CTkFont(size=20))
         self.Luminosidade_Cruz4=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 4:",font=ctk.CTkFont(size=20))
 
-        self.Luminosidade_Cruz1.pack()
-        self.Luminosidade_Cruz2.pack()
-        self.Luminosidade_Cruz3.pack()
-        self.Luminosidade_Cruz4.pack()
+
+        self.Luminosidade_Cruz1.pack(pady=(0,6))
+        self.Luminosidade_Cruz2.pack(pady=(0,6))
+        self.Luminosidade_Cruz3.pack(pady=(0,6))
+        self.Luminosidade_Cruz4.pack(pady=(0,6))
 
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
@@ -267,63 +275,100 @@ class aplicativo(ctk.CTk):
         self.tela_diagnosticos.grid_rowconfigure(0, weight=1)
 
         self.quadro_1Diag=ctk.CTkFrame(self.tela_diagnosticos,fg_color="#E9E9E9")
-        #self.Calibracao_Titulo=ctk.CTkLabel(self.quadro_1Diag,text="Calibração",font=ctk.CTkFont(size=30))
-        #self.Calibracao_Titulo.pack()
+        self.Calibracao_Titulo=ctk.CTkLabel(self.quadro_1Diag,text="Calibração",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
+        self.Calibracao_Titulo.pack(pady=10)
 
         self.quadro_1Diag.grid(row=0,column=0,padx=10,pady=10, sticky="nsew")
         
         self.quadro_2Diag=ctk.CTkFrame(self.tela_diagnosticos, fg_color="#E9E9E9")
+        
         self.quadro_2Diag.grid(row=0,column=1,padx=10,pady=10, sticky="nsew")
 
         #Acima são os dois quadrantes principais (esquerda e direita)
-        #================================================================
-
 
         #================================================================
-        #Abaixo são os subquadrantes dentro do quadro_1
-
-        self.quadro_1Diag.grid_columnconfigure(0,weight=1)
-        self.quadro_1Diag.grid_columnconfigure(1, weight=1)
-
-        self.quadro_1Diag.grid_rowconfigure(0, weight=1)
         #================================================================
-        
-        self.subquadro_1=ctk.CTkFrame(self.quadro_1Diag,height=250,width=120,fg_color="#FFFEFE")
-        self.subquadro_1.grid(row=0,column=0, padx=10, pady=10)
+        #========================ABA ESQUERDA============================
+        #Frame Criado para guardar dados do Servo e do Motor de Passo
+        self.Calibracao_Motor=ctk.CTkFrame(self.quadro_1Diag,fg_color="#E9E9E9")
+        self.Calibracao_Motor.pack(fill="x",padx=20)
 
-        self.subquadro__2=ctk.CTkFrame(self.quadro_1Diag,height=250,width=120,fg_color="#FFFEFE")
-        self.subquadro__2.grid(row=0, column=1,padx=10,pady=10)
-        
+        self.Status_doSistemaFrame=ctk.CTkFrame(self.quadro_2Diag,fg_color="#E9E9E9")
+        self.Status_doSistemaFrame.pack(fill="both",expand=True)
 
+        self.criar_Separador_aba()
         #================================================================
         #Dados referente ao Motor de Passo
-        self.Calibracao_Motor=ctk.CTkFrame(self.subquadro_1)
-    
-        self.Motor_dePassoTexto=ctk.CTkLabel(self.subquadro_1,text="Motor de passo",text_color="black",font=ctk.CTkFont(size=25))
+        self.Frame_MotordePasso=ctk.CTkFrame(self.Calibracao_Motor,fg_color="#F5F5F5",height=150)
+        self.Frame_MotordePasso.pack(fill="x",expand=True,pady=10)
+        self.Frame_MotordePasso.pack_propagate(False)
+
+        self.Motor_dePassoTexto=ctk.CTkLabel(self.Frame_MotordePasso,text="Motor de passo",text_color="black",font=ctk.CTkFont(size=25,family="Segoe UI",weight="bold"))
         self.Motor_dePassoTexto.pack()
 
-        self.Motor_dePassoSubTexto=ctk.CTkLabel(self.subquadro_1,text="Retorna ao ponto zero",text_color="black",font=ctk.CTkFont(size=15))
+        self.Motor_dePassoSubTexto=ctk.CTkLabel(self.Frame_MotordePasso,text="Retorna ao ponto zero",text_color="black",font=ctk.CTkFont(size=15))
         self.Motor_dePassoSubTexto.pack()
 
-        self.Motor_dePassoBarr=ctk.CTkProgressBar(self.subquadro_1, width=400)
-        self.Motor_dePassoBarr.pack()
+        self.Motor_dePassoBarr=ctk.CTkProgressBar(self.Frame_MotordePasso, width=350)
+        self.Motor_dePassoBarr.pack(pady=(40,0))
 
-        self.Calibracao_Motor=ctk.CTkButton(self.subquadro_1,width=100, height=20,text="Calibrar Motor",font=ctk.CTkFont(size=18),fg_color="transparent",hover_color="Black",text_color="#B3B3B3",)
-        self.Calibracao_Motor.pack(pady=10)
+        self.Botao_Calibracao_Motor=ctk.CTkButton(self.Frame_MotordePasso,width=100, height=20,text="Calibrar Motor",font=ctk.CTkFont(size=18),fg_color="transparent",hover_color="#FFFFFF",text_color="#B3B3B3",)
+        self.Botao_Calibracao_Motor.pack(pady=10)
 
         #================================================================
         #Dados referente ao Servo Motor
-        self.Motor_ServoTexto=ctk.CTkLabel(self.subquadro__2,text="Motor Servo",text_color="black",font=ctk.CTkFont(size=25))
+
+        self.Frame_MotorServo=ctk.CTkFrame(self.Calibracao_Motor, fg_color="#F5F5F5", height=150)
+        self.Frame_MotorServo.pack(fill="x",expand=True,pady=10)
+        self.Frame_MotorServo.pack_propagate(False)
+
+        self.Motor_ServoTexto=ctk.CTkLabel(self.Frame_MotorServo,text="Motor Servo",text_color="black",font=ctk.CTkFont(size=25,family="Segoe UI",weight="bold"))
         self.Motor_ServoTexto.pack()
         
-        self.Motor_ServoSubTexto=ctk.CTkLabel(self.subquadro__2,text="Retorna ao angulo Inicial",text_color="black",font=ctk.CTkFont(size=15))
+        self.Motor_ServoSubTexto=ctk.CTkLabel(self.Frame_MotorServo,text="Retorna ao angulo Inicial",text_color="black",font=ctk.CTkFont(size=15))
         self.Motor_ServoSubTexto.pack()
         
-        self.Motor_ServoBarr=ctk.CTkProgressBar(self.subquadro__2, width=400)
-        self.Motor_ServoBarr.pack()
+        self.Motor_ServoBarr=ctk.CTkProgressBar(self.Frame_MotorServo, width=350)
+        self.Motor_ServoBarr.pack(pady=(40,0))
 
-        self.Calibracao_Servo=ctk.CTkButton(self.subquadro__2,width=100,height=20,text="Calibrar Servo",font=ctk.CTkFont(size=18),fg_color="transparent",hover_color="Black",text_color="#B3B3B3")
+        self.Calibracao_Servo=ctk.CTkButton(self.Frame_MotorServo,width=100,height=20,text="Calibrar Servo",font=ctk.CTkFont(size=18),fg_color="transparent",hover_color="#FFFFFF",text_color="#B3B3B3")
         self.Calibracao_Servo.pack(pady=10)
+
+        self.criar_Separador_aba()
+
+        #================================================================
+        #Referencias dos eixos
+
+        self.referencia_eixos=ctk.CTkFrame(self.Calibracao_Motor,fg_color="#F5F5F5",height=400)
+        self.referencia_eixos.pack(fill="x",expand=True,pady=10)
+
+        self.Texto_TituloReferenciaDosEixos=ctk.CTkLabel(self.referencia_eixos,text="Referência dos Eixos",font=ctk.CTkFont(size=25,family="Segoe UI",weight="bold"))
+        self.Texto_TituloReferenciaDosEixos.pack(pady=(0,20))
+
+        self.Texto_ReferenciaEixoHorizontal=ctk.CTkLabel(self.referencia_eixos,text="Horizontal:",text_color="black",font=ctk.CTkFont(size=15))
+        self.Texto_ReferenciaEixoHorizontal.pack(pady=(0,5))
+
+        self.Texto_ReferenciaEixoVertical=ctk.CTkLabel(self.referencia_eixos,text="Vertical:",text_color="black",font=ctk.CTkFont(size=15))
+        self.Texto_ReferenciaEixoVertical.pack(pady=(0,5))
+
+        self.criar_Separador_aba()
+        #================================================================
+        #================================================================
+        #========================ABA DIREITA============================
+        #Frame Criado para status do sistema
+        self.Status_doSistema=ctk.CTkFrame(self.Status_doSistemaFrame,fg_color="transparent")
+        self.Status_doSistema.pack()
+        #================================================================
+        #aqui eu criei o titulo, subtitulo e tambem um frame para a organização dos textos
+        self.Status_Titulo=ctk.CTkLabel(self.Status_doSistema,text="Status do Sistema",text_color="black",font=ctk.CTkFont(size=25,family="Segoe UI",weight="bold"))
+        self.Status_Titulo.pack()
+
+        self.Status_SubTitulo=ctk.CTkLabel(self.Status_doSistema,text="Atualizado em tempo real",font=ctk.CTkFont(size=15))
+        self.Status_SubTitulo.pack()
+
+        self.Status_doSistemaInformacoes=ctk.CTkFrame(self.Status_doSistemaFrame,fg_color="#F5F5F5")
+        self.Status_doSistemaInformacoes.pack(fill="both",expand=True,padx=30,pady=(15,30))
+        #================================================================
 
     def relatorios(self):
         pass
@@ -339,6 +384,10 @@ class aplicativo(ctk.CTk):
     def criar_Separador_barra(self):
         self.separador=ctk.CTkFrame(self.Barra_lateral,height=3,corner_radius=0,fg_color="#E3E3E3")
         self.separador.pack(fill="x",padx=12,pady=15)
+
+    def criar_Separador_aba(self):
+        self.Separador_aba=ctk.CTkFrame(self.Calibracao_Motor,height=2,corner_radius=0,fg_color="#D0D0D0")
+        self.Separador_aba.pack(fill="x",padx=15,pady=10)
 
 #=================================================================================
 #=================================Acima Esteticas Extras==========================
