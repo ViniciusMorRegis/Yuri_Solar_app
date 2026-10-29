@@ -228,54 +228,131 @@ class aplicativo(ctk.CTk):
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 1
-        self.Geracao_Potencia=ctk.CTkLabel(self.quadro_1Dash,text="Geração de Energia (W)",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
-        self.valor_Potencia=ctk.CTkLabel(self.quadro_1Dash,text="0.0 W",font=ctk.CTkFont(size=15))
+
+        self.PrimeiroQuadranteDashboard=ctk.CTkFrame(self.quadro_1Dash,fg_color="#E9E9E9")
+        self.PrimeiroQuadranteDashboard.pack(expand=True)
+
+        self.Geracao_Potencia=ctk.CTkLabel(self.PrimeiroQuadranteDashboard,text="Geração de Energia (W)",font=ctk.CTkFont(size=15,family="Segoe UI",weight="bold"))
+        self.Geracao_PotenciaSubTitulo=ctk.CTkLabel(self.PrimeiroQuadranteDashboard,text="INA219",font=ctk.CTkFont(size=10))
+        self.valor_Potencia=ctk.CTkLabel(self.PrimeiroQuadranteDashboard,text="5.0 mW",font=ctk.CTkFont(size=45))
+
+        #================================================================
+        #Dados da potência
 
         self.Geracao_Potencia.pack(pady=10)
+        self.Geracao_PotenciaSubTitulo.pack()
         self.valor_Potencia.pack()
 
-        self.horariosGraficoPlot=deque(maxlen=30)
-        self.potenciaGraficoPlot=deque(maxlen=30)
-        
+        self.horariosGraficoPlot = deque(maxlen=30)
+        self.potenciaGraficoPlot = deque(maxlen=30)
+
+
+        #================================================================
         #Criando a figura
-        self.figuraPlot=Figure(figsize=(5,3),dpi=100)
+
+        self.figuraPlot = Figure(figsize=(8, 2), dpi=100)
         self.figuraPlot.patch.set_facecolor("#E9E9E9")
-        
-        #Criando o grafico
-        self.graficoPlot=self.figuraPlot.add_subplot(111)
+
+
+        #================================================================
+        #Criando o gráfico
+
+        self.graficoPlot = self.figuraPlot.add_subplot(111)
         self.graficoPlot.set_facecolor("#E9E9E9")
-        
-        self.graficoPlot.set_title("Potencia ao longo do tempo (mW)")
-        self.graficoPlot.set_xlabel("Horário")
-        self.graficoPlot.set_ylabel("Potência (mW)")
-        self.graficoPlot.grid(True, alpha=0.2)
-        
-        #Formatação do horario
-        self.graficoPlot.xaxis_date()
-        self.graficoPlot.xaxis.set_major_formatter(mdates.DateFormatter("%H:%M:%S"))
-        
-        #Linha do Grafico
-        self.linha_graficoPlot, = self.graficoPlot.plot([],[],color="#B8B8B8",linewidth=2)
-        
-        #Inserindo o grafico abaixo dos outros dados
-        self.canvas_graficoPlot=FigureCanvasTkAgg(self.figuraPlot,master=self.quadro_1Dash)
-        
-        self.canvas_graficoPlot.get_tk_widget().pack(fill="both", expand=True,padx=15,pady=10)
+
+
+        #Removi as grades e os eixos para que ficasse clean
+
+        self.graficoPlot.grid(False)
+        self.graficoPlot.set_axis_off()
+
+
+        #================================================================
+        #Criei a linha de potencia
+
+        self.linha_graficoPlot, = self.graficoPlot.plot([],[],color="#555555",linewidth=2)
+        #================================================================
+        #inseri o grafico dentro do quadrante 1
+
+        self.canvas_graficoPlot = FigureCanvasTkAgg(self.figuraPlot,master=self.PrimeiroQuadranteDashboard)
+
+        self.canvas_graficoPlot.get_tk_widget().pack(fill="x",expand=True,padx=10,pady=10)
+
+
+        # Iniciando a atualização
         self.atualizar_graficoPlot()
+        #================================================================
+        self.Quadros_PrimeiroQuadrante=ctk.CTkFrame(self.PrimeiroQuadranteDashboard,fg_color="#E9E9E9",height=350,width=600)
+        self.Quadros_PrimeiroQuadrante.pack(expand=True)
+        self.Quadros_PrimeiroQuadrante.pack_propagate(False)
+        #================================================================
+        #Primeiro bloco do Quadrante 1, marcando a tensao
+        self.quadro_1x1Dash=ctk.CTkFrame(self.Quadros_PrimeiroQuadrante,fg_color="#E9E9E9")
+        self.quadro_1x1Dash.grid(row=0,column=0,pady=(0,5))
+
+        self.Bloco_1x1Dash=ctk.CTkFrame(self.quadro_1x1Dash,fg_color="#E9E9E9",height=50,width=150)
+        self.TextoBloco_1x1Dash=ctk.CTkLabel(self.Bloco_1x1Dash,text="Tensão:",text_color="#bdbdbd",font=ctk.CTkFont(size=15,family="Segoe UI",weight="bold"))
+        self.SubTextoBloco_1x1Dash=ctk.CTkLabel(self.Bloco_1x1Dash,text="0V",text_color="#6e6e6e",font=ctk.CTkFont(size=25,family="Segoe UI",weight="bold"))
+        self.Bloco_1x1Dash.pack(padx=3)
+        self.Bloco_1x1Dash.pack_propagate(False)
+        self.TextoBloco_1x1Dash.pack()
+        self.SubTextoBloco_1x1Dash.pack()
+
+        #================================================================
+        #Segundo bloco do Quadrante 1
+        self.quadro_1x2Dash=ctk.CTkFrame(self.Quadros_PrimeiroQuadrante,fg_color="#E9E9E9")
+        self.quadro_1x2Dash.grid(row=0,column=1,pady=(0,5))
+
+        self.Bloco_1x2Dash=ctk.CTkFrame(self.quadro_1x2Dash,fg_color="#E9E9E9",height=50,width=150)
+        self.TextoBloco_1x2Dash=ctk.CTkLabel(self.Bloco_1x2Dash,text="Tensao Shunt:",text_color="#bdbdbd",font=ctk.CTkFont(size=15,family="Segoe UI",weight="bold"))
+        self.SubTextoBloco_1x2Dash=ctk.CTkLabel(self.Bloco_1x2Dash,text="0mV",text_color="#6e6e6e",font=ctk.CTkFont(size=25,family="Segoe UI",weight="bold"))
+        self.Bloco_1x2Dash.pack(padx=3)
+        self.Bloco_1x2Dash.pack_propagate(False)
+        self.TextoBloco_1x2Dash.pack()
+        self.SubTextoBloco_1x2Dash.pack()
+
+        #================================================================
+        #terceiro bloco do Quadrante 1
+        self.quadro_1x3Dash=ctk.CTkFrame(self.Quadros_PrimeiroQuadrante,fg_color="#E9E9E9")
+        self.quadro_1x3Dash.grid(row=0,column=2,pady=(0,5))
+
+        self.Bloco_1x3Dash=ctk.CTkFrame(self.quadro_1x3Dash,fg_color="#E9E9E9",height=50,width=150)
+        self.TextoBloco_1x3Dash=ctk.CTkLabel(self.Bloco_1x3Dash,text="Corrente:",text_color="#bdbdbd",font=ctk.CTkFont(size=15,family="Segoe UI",weight="bold"))
+        self.SubTextoBloco_1x3Dash=ctk.CTkLabel(self.Bloco_1x3Dash,text="0A",text_color="#6e6e6e",font=ctk.CTkFont(size=25,family="Segoe UI",weight="bold"))
+        self.Bloco_1x3Dash.pack(padx=3)
+        self.Bloco_1x3Dash.pack_propagate(False)
+        self.TextoBloco_1x3Dash.pack()
+        self.SubTextoBloco_1x3Dash.pack()
+
+        #================================================================
+        #Quarto bloco do Quadrante 1
+        self.quadro_1x4Dash=ctk.CTkFrame(self.Quadros_PrimeiroQuadrante,fg_color="#E9E9E9")
+        self.quadro_1x4Dash.grid(row=0,column=3,pady=(0,0))
+
+        self.Bloco_1x4Dash=ctk.CTkFrame(self.quadro_1x4Dash,fg_color="#E9E9E9",height=50,width=150)
+        self.TextoBloco_1x4Dash=ctk.CTkLabel(self.Bloco_1x4Dash,text="Potência:",text_color="#bdbdbd",font=ctk.CTkFont(size=15,family="Segoe UI",weight="bold"))
+        self.SubTextoBloco_1x4Dash=ctk.CTkLabel(self.Bloco_1x4Dash,text="0W",text_color="#6e6e6e",font=ctk.CTkFont(size=25,family="Segoe UI",weight="bold"))
+        self.Bloco_1x4Dash.pack(padx=3)
+        self.Bloco_1x4Dash.pack_propagate(False)
+        self.TextoBloco_1x4Dash.pack()
+        self.SubTextoBloco_1x4Dash.pack()
 
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 2
-        self.Texto_Angulacao=ctk.CTkLabel(self.quadro_2Dash,text="Angulação dos Motores",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
-        self.Texto_Angulacao.pack(pady=10)
+        self.SegundoQuadranteDashboard=ctk.CTkFrame(self.quadro_2Dash,fg_color="#E9E9E9")
+        self.SegundoQuadranteDashboard.pack(expand=True)
+
+        self.Texto_Angulacao=ctk.CTkLabel(self.SegundoQuadranteDashboard,text="Angulação dos Motores",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
+        self.Texto_Angulacao.pack(pady=(0,5))
 
         #Quantos graus o motor de passo e o servo motor estão 
-        self.angulo180=ctk.CTkLabel(self.quadro_2Dash, text="Angulo do Servo: 0°",font=ctk.CTkFont(size=15))
-        self.angulo360=ctk.CTkLabel(self.quadro_2Dash, text="Angulo do motor de Passo: 0°",font=ctk.CTkFont(size=15))
+        self.angulo180=ctk.CTkLabel(self.SegundoQuadranteDashboard, text="Angulo do Servo: 0°",font=ctk.CTkFont(size=15))
+        self.angulo360=ctk.CTkLabel(self.SegundoQuadranteDashboard, text="Angulo do motor de Passo: 0°",font=ctk.CTkFont(size=15))
 
         self.angulo180.pack(pady=(0,5))
-        self.angulo360.pack()
-
+        self.angulo360.pack(pady=(0,5))
+        
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 3
@@ -572,6 +649,17 @@ class aplicativo(ctk.CTk):
         self.Resumo_Operacional.grid(row=0,column=0,padx=10,pady=10,sticky="nsew")
         self.Resumo_Operacional.grid_propagate(False)
 
+        self.Resumo_OperacionalIna=ctk.CTkLabel(self.Resumo_Operacional,text="Dados INA219",font=ctk.CTkFont(size=20,family="Segoe UI",weight="bold"))
+        self.Resumo_OperacionalIna.pack()
+        self.Resumo_OperacionalIna.pack_propagate(False)
+
+        self.Resumo_OperacionalInaTensao=ctk.CTkLabel(self.Resumo_Operacional,text="Tensão: 0 V",font=ctk.CTkFont(size=15))
+        self.Resumo_OperacionalInaTensao.pack(anchor="w",padx=(10,0))
+
+        self.Resumo_OperacionalInaCorrente=ctk.CTkLabel(self.Resumo_Operacional,text="Corrente: 0 A",font=ctk.CTkFont(size=15))
+        self.Resumo_OperacionalInaCorrente.pack(anchor="w",padx=(10,0))
+
+        #Exportação
         self.Exportar_Relatorio=ctk.CTkFrame(self.Bloco_ResumoeExportacao,fg_color="#E3E3E3",height=150)
         self.Exportar_Relatorio.grid(row=0,column=1,padx=10,pady=10,sticky="nsew")
         self.Exportar_Relatorio.grid_propagate(False)
