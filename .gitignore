@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Editor
+.vscode/
+
+# Backups locais do Solar.py
+SolarRecover*.py
+
+# Estudos locais de Tkinter/CustomTkinter
+sistema.py
+main.py
+teste.py
+sistemaCompleto.py
+tela_login_teste.py
