@@ -100,7 +100,7 @@ class aplicativo(ctk.CTk):
         self.Texto_NaoTemConta=ctk.CTkLabel(self.campo_central,text="Não possui uma conta?")
         self.Texto_NaoTemConta.pack()
         
-        self.Botao_CriarConta=ctk.CTkButton(self.campo_central,text="Criar",text_color="black",fg_color="transparent",hover_color="#FFFFFF",width=400,height=50,corner_radius=25)
+        self.Botao_CriarConta=ctk.CTkButton(self.campo_central,command=self.abrir_Criar_Conta,text="Criar",text_color="black",fg_color="transparent",hover_color="#FFFFFF",width=400,height=50,corner_radius=25)
         self.Botao_CriarConta.pack(pady=(0,0))
 
         #================================================================================================
@@ -118,7 +118,74 @@ class aplicativo(ctk.CTk):
         #===============================================================================================
 
     def Criar_Conta(self):
-        pass
+        self.janela_criar_conta=ctk.CTkFrame(self)
+        self.janela_criar_conta.pack(fill="both",expand=True)
+
+        #==============================================================================================
+        #Mesmo plano de fundo do login
+
+        self.imagem_fundo_CriarConta=ctk.CTkImage(dark_image=Image.open("imagens/PlanoDeFundo/planodefundo.png"),size=(self.winfo_screenwidth(),self.winfo_screenheight()))
+        self.fundo_CriarConta=ctk.CTkLabel(self.janela_criar_conta,image=self.imagem_fundo_CriarConta,text="")
+        self.fundo_CriarConta.place(relx=0.5,rely=0.5,anchor="center")
+
+        #==============================================================================================
+        #Frame branco central: 50% da largura e 75% da altura da tela
+        #usei relwidth/relheight para que a porcentagem seja sempre exata, independente da resolução
+
+        self.Frame_CriarConta=ctk.CTkFrame(self.janela_criar_conta,fg_color="transparent",corner_radius=0)
+        self.Frame_CriarConta.place(relx=0.5,rely=0.5,anchor="center",relwidth=0.5,relheight=0.75)
+
+        #Campo para centralizar os conteudos dentro do frame branco
+        self.Conteudo_CriarConta=ctk.CTkFrame(self.Frame_CriarConta,fg_color="transparent")
+        self.Conteudo_CriarConta.place(relx=0.5,rely=0.5,anchor="center")
+
+        #==============================================================================================
+        #Espaço da logo
+        #Frame com tamanho fixo, assim quando eu trocar o texto pela logo o layout nao se mexe
+
+        self.Espaco_Logo_CriarConta=ctk.CTkFrame(self.Conteudo_CriarConta,fg_color="transparent",width=400,height=170)
+        self.Espaco_Logo_CriarConta.pack(pady=6)
+        self.Espaco_Logo_CriarConta.pack_propagate(False)
+
+        self.Logo_CriarConta=ctk.CTkLabel(self.Espaco_Logo_CriarConta,text="Solar",text_color="#292929",font=ctk.CTkFont(size=60,family="Segoe UI",weight="bold"))
+        self.Logo_CriarConta.pack(expand=True)
+
+        #Para colocar a logo, é só descomentar as linhas abaixo e trocar o caminho da imagem
+        #self.Imagem_Logo_CriarConta=ctk.CTkImage(dark_image=Image.open("imagens/Logo/logo.png"),size=(150,150))
+        #self.Logo_CriarConta.configure(image=self.Imagem_Logo_CriarConta,text="")
+
+        #==============================================================================================
+        #Titulo e subtitulo
+
+        self.Titulo_CriarConta=ctk.CTkLabel(self.Conteudo_CriarConta,text="Criar Conta",text_color="#292929",font=ctk.CTkFont(size=25,family="Segoe UI",weight="bold"))
+        self.Titulo_CriarConta.pack(pady=6)
+
+        self.SubTitulo_CriarConta=ctk.CTkLabel(self.Conteudo_CriarConta,text="Preencha os dados abaixo",text_color="#787878",font=ctk.CTkFont(size=15))
+        self.SubTitulo_CriarConta.pack(pady=6)
+
+        #==============================================================================================
+        #Campos de texto
+
+        self.CriarConta_Usuario=ctk.CTkEntry(self.Conteudo_CriarConta,placeholder_text="Usuario",width=400,height=50,font=ctk.CTkFont(size=16),corner_radius=25,fg_color="#E9E9E9",text_color="#292929",placeholder_text_color="#787878",border_width=0)
+        self.CriarConta_Usuario.pack(pady=6)
+
+        self.CriarConta_Senha=ctk.CTkEntry(self.Conteudo_CriarConta,placeholder_text="Senha",width=400,height=50,font=ctk.CTkFont(size=16),corner_radius=25,fg_color="#E9E9E9",text_color="#292929",placeholder_text_color="#787878",border_width=0,show="*")
+        self.CriarConta_Senha.pack(pady=6)
+
+        self.CriarConta_ConfirmarSenha=ctk.CTkEntry(self.Conteudo_CriarConta,placeholder_text="Confirmar senha",width=400,height=50,font=ctk.CTkFont(size=16),corner_radius=25,fg_color="#E9E9E9",text_color="#292929",placeholder_text_color="#787878",border_width=0,show="*")
+        self.CriarConta_ConfirmarSenha.pack(pady=6)
+
+        #==============================================================================================
+        #Botoes
+
+        self.Botao_ConfirmarCriarConta=ctk.CTkButton(self.Conteudo_CriarConta,text="Criar conta",text_color="black",fg_color="#E9E9E9",hover_color="#D0D0D0",width=400,height=50,corner_radius=25)
+        self.Botao_ConfirmarCriarConta.pack(pady=6)
+
+        self.Texto_JaTemConta=ctk.CTkLabel(self.Conteudo_CriarConta,text="Já possui uma conta?",text_color="#787878")
+        self.Texto_JaTemConta.pack(pady=6)
+
+        self.Botao_VoltarLogin=ctk.CTkButton(self.Conteudo_CriarConta,command=self.voltar_Login,text="Entrar",text_color="black",fg_color="transparent",hover_color="#E9E9E9",width=400,height=50,corner_radius=25)
+        self.Botao_VoltarLogin.pack(pady=6)
 
     def tela_principal(self):
         self.janela_principal=ctk.CTkFrame(self,fg_color="black")
@@ -180,7 +247,7 @@ class aplicativo(ctk.CTk):
         #============================================================================================
         #Load da imagem icone do botao, configuração do botao e setagem dele
         self.icone_Configuracoes=ctk.CTkImage(dark_image=Image.open("imagens/IconesBarraLateral/settings.png"),size=(18,18))
-        self.botao_Configuracoes=ctk.CTkButton(self.Barra_lateral,text="Configurações",width=190,height=36,anchor="w",corner_radius=10,border_spacing=12,fg_color="#E9E9E9",hover_color="#FFFFFF",text_color="#292929" ,font=ctk.CTkFont(size=13),image=self.icone_Configuracoes)
+        self.botao_Configuracoes=ctk.CTkButton(self.Barra_lateral,text="Configurações",width=190,height=36,anchor="w",corner_radius=10,border_spacing=12,fg_color="#E9E9E9",hover_color="#FFFFFF",text_color="#292929" ,font=ctk.CTkFont(size=13),image=self.icone_Configuracoes,command=lambda: self.troca_tela("configuracoes"))
         self.botao_Configuracoes.pack(pady=5)
 
         #============================================================================================
@@ -356,23 +423,35 @@ class aplicativo(ctk.CTk):
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
         #Quadrante 3
-        self.Texto_TituloLuminosidadeLDRCruz=ctk.CTkLabel(self.quadro_3Dash,text="Lumens",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
-        self.Texto_TituloLuminosidadeLDRCruz.pack(pady=(10,1))
+        self.TerceiroQuadranteDashboard=ctk.CTkFrame(self.quadro_3Dash,fg_color="#E9E9E9")
+        self.TerceiroQuadranteDashboard.pack(expand=True)
 
-        self.Texto_subTituloLuminosidadeLDRCruz=ctk.CTkLabel(self.quadro_3Dash,text="Quantidade de lúmens incidindo na Cruz",font=ctk.CTkFont(size=10))
-        self.Texto_subTituloLuminosidadeLDRCruz.pack(pady=(0,14))
+        self.Texto_TituloLuminosidadeLDR=ctk.CTkLabel(self.TerceiroQuadranteDashboard,text="Luminosidade",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
+        self.Texto_TituloLuminosidadeLDR.pack(pady=(0,0))
 
-        #Os LDRS devem ser os que ficam na cruz, não os da base
-        self.Luminosidade_Cruz1=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 1:",font=ctk.CTkFont(size=20))
-        self.Luminosidade_Cruz2=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 2:",font=ctk.CTkFont(size=20))
-        self.Luminosidade_Cruz3=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 3:",font=ctk.CTkFont(size=20))
-        self.Luminosidade_Cruz4=ctk.CTkLabel(self.quadro_3Dash,text="Luminosidade do LDR 4:",font=ctk.CTkFont(size=20))
+        self.Texto_subTituloLuminosidadeLDR=ctk.CTkLabel(self.TerceiroQuadranteDashboard,text="Leitura dos 8 LDRs em tempo real",font=ctk.CTkFont(size=15))
+        self.Texto_subTituloLuminosidadeLDR.pack(pady=(0,10))
 
+        #================================================================
+        #Duas colunas: Base (motor de passo) e Cruz (servo)
+        self.Colunas_LDR=ctk.CTkFrame(self.TerceiroQuadranteDashboard,fg_color="transparent")
+        self.Colunas_LDR.pack()
 
-        self.Luminosidade_Cruz1.pack(pady=(0,6))
-        self.Luminosidade_Cruz2.pack(pady=(0,6))
-        self.Luminosidade_Cruz3.pack(pady=(0,6))
-        self.Luminosidade_Cruz4.pack(pady=(0,6))
+        self.Coluna_LDRBase=self.ColunaLDR(0,"Base","Motor de passo · 360°")
+        self.Coluna_LDRCruz=self.ColunaLDR(1,"Cruz","Servo · 180°")
+
+        #Os LDRS da base
+        #cada variavel guarda o label do VALOR, para atualizar depois com .configure(text=...)
+        self.Luminosidade_Norte=self.LinhaLDR(self.Coluna_LDRBase,"Norte")
+        self.Luminosidade_Sul=self.LinhaLDR(self.Coluna_LDRBase,"Sul")
+        self.Luminosidade_Leste=self.LinhaLDR(self.Coluna_LDRBase,"Leste")
+        self.Luminosidade_Oeste=self.LinhaLDR(self.Coluna_LDRBase,"Oeste")
+
+        #Os LDRS da cruz
+        self.Luminosidade_Cruz1=self.LinhaLDR(self.Coluna_LDRCruz,"Esquerda cima")
+        self.Luminosidade_Cruz2=self.LinhaLDR(self.Coluna_LDRCruz,"Esquerda baixo")
+        self.Luminosidade_Cruz3=self.LinhaLDR(self.Coluna_LDRCruz,"Direita cima")
+        self.Luminosidade_Cruz4=self.LinhaLDR(self.Coluna_LDRCruz,"Direita baixo")
 
         #================================================================
         #Inserção dos dados nos seus respectivos quadrantes
@@ -598,7 +677,7 @@ class aplicativo(ctk.CTk):
         #================================================================
         #Dados do Bloco de Pico de Potencia
         self.Icone_PicoPotencia=ctk.CTkImage(dark_image=Image.open("imagens/IconesRelatorios/seta.png"),size=(18,18))
-        self.Icone_PicoPotencia_Titulo=ctk.CTkLabel(self.PicoDePotencia,image=self.Icone_PicoPotencia)
+        self.Icone_PicoPotencia_Titulo=ctk.CTkLabel(self.PicoDePotencia,image=self.Icone_PicoPotencia,text="")
         self.Icone_PicoPotencia_Titulo.pack(anchor="w",padx=(10,0),pady=(5,0))
         self.PicoDePotencia.pack_propagate(False)
 
@@ -614,11 +693,11 @@ class aplicativo(ctk.CTk):
         #Dados do Bloco de Tempo de Geração
 
         self.Icone_TempoGeracao=ctk.CTkImage(dark_image=Image.open("imagens/IconesRelatorios/RELOGIO.png"),size=(18,18))
-        self.Icone_TempoGeracao_Titulo=ctk.CTkLabel(self.TempoDeGeracao,image=self.Icone_TempoGeracao)
+        self.Icone_TempoGeracao_Titulo=ctk.CTkLabel(self.TempoDeGeracao,image=self.Icone_TempoGeracao,text="")
         self.Icone_TempoGeracao_Titulo.pack(anchor="w",padx=(10,0),pady=(5,0))
         self.TempoDeGeracao.pack_propagate(False)
         
-        self.TempoGeracao_subTitulo=ctk.CTkLabel(self.TempoDeGeracao,text="Pico de Potência",font=ctk.CTkFont(size=18,family="Segoe UI",weight="bold"))
+        self.TempoGeracao_subTitulo=ctk.CTkLabel(self.TempoDeGeracao,text="Tempo de Geração",font=ctk.CTkFont(size=18,family="Segoe UI",weight="bold"))
         self.TempoGeracao_subTitulo.pack(anchor="w", padx=(10,10))
         self.TempoGeracao_subTitulo.pack_propagate(False)
         
@@ -638,34 +717,161 @@ class aplicativo(ctk.CTk):
 
         #================================================================
         #Bloco de resumo Operacional e exportação
-        self.Bloco_ResumoeExportacao=ctk.CTkFrame(self.aba_Relatorios,fg_color="#E9E9E9",height=180)
+        self.Bloco_ResumoeExportacao=ctk.CTkFrame(self.aba_Relatorios,fg_color="#E9E9E9",height=210)
         self.Bloco_ResumoeExportacao.pack(fill="both",padx=10,pady=10)
         self.Bloco_ResumoeExportacao.grid_propagate(False)
 
         self.Bloco_ResumoeExportacao.grid_columnconfigure(0,weight=1)
         self.Bloco_ResumoeExportacao.grid_columnconfigure(1,weight=1)
+        self.Bloco_ResumoeExportacao.grid_rowconfigure(0,weight=1)
 
         self.Resumo_Operacional=ctk.CTkFrame(self.Bloco_ResumoeExportacao,fg_color="#E3E3E3",height=150)
         self.Resumo_Operacional.grid(row=0,column=0,padx=10,pady=10,sticky="nsew")
         self.Resumo_Operacional.grid_propagate(False)
 
         self.Resumo_OperacionalIna=ctk.CTkLabel(self.Resumo_Operacional,text="Dados INA219",font=ctk.CTkFont(size=20,family="Segoe UI",weight="bold"))
-        self.Resumo_OperacionalIna.pack()
+        self.Resumo_OperacionalIna.pack(pady=(10,0))
         self.Resumo_OperacionalIna.pack_propagate(False)
 
-        self.Resumo_OperacionalInaTensao=ctk.CTkLabel(self.Resumo_Operacional,text="Tensão: 0 V",font=ctk.CTkFont(size=15))
-        self.Resumo_OperacionalInaTensao.pack(anchor="w",padx=(10,0))
+        self.Resumo_OperacionalSubTitulo=ctk.CTkLabel(self.Resumo_Operacional,text="Média das leituras do periodo",text_color="#787878",font=ctk.CTkFont(size=12))
+        self.Resumo_OperacionalSubTitulo.pack()
 
-        self.Resumo_OperacionalInaCorrente=ctk.CTkLabel(self.Resumo_Operacional,text="Corrente: 0 A",font=ctk.CTkFont(size=15))
-        self.Resumo_OperacionalInaCorrente.pack(anchor="w",padx=(10,0))
+        #================================================================
+        #Valores do INA219 lado a lado (mesmo estilo dos blocos do dashboard)
+        self.Valores_Ina=ctk.CTkFrame(self.Resumo_Operacional,fg_color="transparent")
+        self.Valores_Ina.pack(fill="x",padx=10,pady=(8,0))
 
+        for coluna in range(4):
+            self.Valores_Ina.grid_columnconfigure(coluna,weight=1)
+
+        self.Resumo_OperacionalInaTensao=self.ValorIna(0,"Tensão","0 V")
+        self.Resumo_OperacionalInaCorrente=self.ValorIna(1,"Corrente","0 A")
+        self.Resumo_OperacionalInaPotencia=self.ValorIna(2,"Potência","0 W")
+        self.Resumo_OperacionalInaShunt=self.ValorIna(3,"Tensão Shunt","0 mV")
+
+        self.Resumo_OperacionalUltimaLeitura=ctk.CTkLabel(self.Resumo_Operacional,text="Última leitura: --:--:--",text_color="#787878",font=ctk.CTkFont(size=12))
+        self.Resumo_OperacionalUltimaLeitura.pack(side="bottom",pady=(0,8))
+
+        #================================================================
         #Exportação
         self.Exportar_Relatorio=ctk.CTkFrame(self.Bloco_ResumoeExportacao,fg_color="#E3E3E3",height=150)
         self.Exportar_Relatorio.grid(row=0,column=1,padx=10,pady=10,sticky="nsew")
         self.Exportar_Relatorio.grid_propagate(False)
 
+        self.Exportar_Titulo=ctk.CTkLabel(self.Exportar_Relatorio,text="Exportar Relatório",font=ctk.CTkFont(size=20,family="Segoe UI",weight="bold"))
+        self.Exportar_Titulo.pack(pady=(10,0))
+
+        self.Exportar_SubTitulo=ctk.CTkLabel(self.Exportar_Relatorio,text="Escolha o periodo e o formato do arquivo",text_color="#787878",font=ctk.CTkFont(size=12))
+        self.Exportar_SubTitulo.pack()
+
+        #Seletor de periodo que sera exportado
+        self.Exportar_Periodo=ctk.CTkSegmentedButton(self.Exportar_Relatorio,values=["Hoje","7 dias","30 dias"],font=ctk.CTkFont(size=13),fg_color="#E9E9E9",selected_color="#D0D0D0",selected_hover_color="#D0D0D0",unselected_color="#E9E9E9",unselected_hover_color="#FFFFFF",text_color="#292929")
+        self.Exportar_Periodo.set("7 dias")
+        self.Exportar_Periodo.pack(pady=(6,0))
+
+        #Botoes de exportação lado a lado
+        self.Exportar_Botoes=ctk.CTkFrame(self.Exportar_Relatorio,fg_color="transparent")
+        self.Exportar_Botoes.pack(pady=(8,0))
+
+        self.Botao_ExportarPDF=ctk.CTkButton(self.Exportar_Botoes,text="Exportar PDF",text_color="black",fg_color="#E9E9E9",hover_color="#FFFFFF",width=180,height=40,corner_radius=20)
+        self.Botao_ExportarPDF.grid(row=0,column=0,padx=6)
+
+        self.Botao_ExportarExcel=ctk.CTkButton(self.Exportar_Botoes,text="Exportar Excel",text_color="black",fg_color="#E9E9E9",hover_color="#FFFFFF",width=180,height=40,corner_radius=20)
+        self.Botao_ExportarExcel.grid(row=0,column=1,padx=6)
+
+        self.Exportar_UltimaExportacao=ctk.CTkLabel(self.Exportar_Relatorio,text="Última exportação: nenhuma",text_color="#787878",font=ctk.CTkFont(size=12))
+        self.Exportar_UltimaExportacao.pack(side="bottom",pady=(0,8))
+
     def configuracoes(self):
-        pass
+        self.tela_configuracoes=ctk.CTkFrame(self.area_principal)
+        self.tela_configuracoes.pack(fill="both",expand=True)
+
+        #================================================================
+        #Quadro que preenche todo o espaço X e Y da area principal
+        self.quadro_Config=ctk.CTkFrame(self.tela_configuracoes,fg_color="#E9E9E9")
+        self.quadro_Config.pack(fill="both",expand=True,padx=10,pady=10)
+
+        #Campo para centralizar todos os conteudos
+        self.Conteudo_Config=ctk.CTkFrame(self.quadro_Config,fg_color="transparent")
+        self.Conteudo_Config.place(relx=0.5,rely=0.5,anchor="center")
+
+        #================================================================
+        #Titulo e subtitulo
+
+        self.Titulo_Config=ctk.CTkLabel(self.Conteudo_Config,text="Configurações",font=ctk.CTkFont(size=30,family="Segoe UI",weight="bold"))
+        self.Titulo_Config.pack(pady=(0,4))
+
+        self.SubTitulo_Config=ctk.CTkLabel(self.Conteudo_Config,text="Ajustes gerais do sistema",font=ctk.CTkFont(size=15))
+        self.SubTitulo_Config.pack(pady=(0,10))
+
+        #================================================================
+        #Grade com os 4 cartões de configuração (2x2)
+        self.Grade_Config=ctk.CTkFrame(self.Conteudo_Config,fg_color="transparent")
+        self.Grade_Config.pack()
+
+        #================================================================
+        #Cartão 1: Conexão com o Arduino
+        self.Cartao_Conexao=self.cartao_Configuracao(0,0,"Conexão")
+
+        self.Linha_Porta=self.linha_Configuracao(self.Cartao_Conexao,"Porta serial")
+        self.Config_Porta=self.opcoes_Configuracao(self.Linha_Porta,["COM3","COM4","COM5","COM6"])
+
+        self.Linha_BaudRate=self.linha_Configuracao(self.Cartao_Conexao,"Baud rate")
+        self.Config_BaudRate=self.opcoes_Configuracao(self.Linha_BaudRate,["9600","115200"])
+
+        self.Botao_TestarConexao=ctk.CTkButton(self.Cartao_Conexao,text="Testar conexão",width=150,height=40,font=ctk.CTkFont(size=15),fg_color="transparent",hover_color="#FFFFFF",text_color="#787878")
+        self.Botao_TestarConexao.pack(pady=6)
+
+        #================================================================
+        #Rastreamento
+        self.Cartao_Rastreamento=self.cartao_Configuracao(0,1,"Rastreamento")
+
+        self.Linha_ModoInicial=self.linha_Configuracao(self.Cartao_Rastreamento,"Modo inicial")
+        self.Config_ModoInicial=ctk.CTkSegmentedButton(self.Linha_ModoInicial,values=["Automático","Manual"],font=ctk.CTkFont(size=13),fg_color="#E9E9E9",selected_color="#D0D0D0",selected_hover_color="#D0D0D0",unselected_color="#E9E9E9",unselected_hover_color="#FFFFFF",text_color="#292929")
+        self.Config_ModoInicial.set("Automático")
+        self.Config_ModoInicial.pack(side="right")
+
+        self.Linha_Intervalo=self.linha_Configuracao(self.Cartao_Rastreamento,"Intervalo de leitura")
+        self.Config_Intervalo=self.opcoes_Configuracao(self.Linha_Intervalo,["1 s","2 s","5 s","10 s"])
+        self.Config_Intervalo.set("2 s")
+
+        self.Linha_Sensibilidade=self.linha_Configuracao(self.Cartao_Rastreamento,"Sensibilidade LDR")
+        self.Config_Sensibilidade=ctk.CTkSlider(self.Linha_Sensibilidade,from_=0,to=100,width=150,fg_color="#E9E9E9",progress_color="#949494",button_color="#787878",button_hover_color="#555555")
+        self.Config_Sensibilidade.set(50)
+        self.Config_Sensibilidade.pack(side="right")
+
+        #================================================================
+        #Motores
+        self.Cartao_Motores=self.cartao_Configuracao(1,0,"Motores")
+
+        self.Linha_AnguloServo=self.linha_Configuracao(self.Cartao_Motores,"Ângulo inicial do servo")
+        self.Config_AnguloServo=self.entrada_Configuracao(self.Linha_AnguloServo,"90")
+
+        self.Linha_PassosMotor=self.linha_Configuracao(self.Cartao_Motores,"Passos por volta")
+        self.Config_PassosMotor=self.entrada_Configuracao(self.Linha_PassosMotor,"2048")
+
+        self.Linha_VelocidadeMotor=self.linha_Configuracao(self.Cartao_Motores,"Velocidade (RPM)")
+        self.Config_VelocidadeMotor=self.entrada_Configuracao(self.Linha_VelocidadeMotor,"10")
+
+        #================================================================
+        #Conta e sobre o sistema
+        self.Cartao_Conta=self.cartao_Configuracao(1,1,"Conta")
+
+        self.Linha_Usuario=self.linha_Configuracao(self.Cartao_Conta,"Usuário")
+        self.Config_Usuario=ctk.CTkLabel(self.Linha_Usuario,text=self.usuario_login,text_color="#777777",font=ctk.CTkFont(size=16))
+        self.Config_Usuario.pack(side="right")
+
+        self.Linha_Versao=self.linha_Configuracao(self.Cartao_Conta,"Versão")
+        self.Config_Versao=ctk.CTkLabel(self.Linha_Versao,text="1.0",text_color="#777777",font=ctk.CTkFont(size=16))
+        self.Config_Versao.pack(side="right")
+
+        self.Botao_AlterarSenha=ctk.CTkButton(self.Cartao_Conta,text="Alterar senha",width=150,height=40,font=ctk.CTkFont(size=15),fg_color="transparent",hover_color="#FFFFFF",text_color="#787878")
+        self.Botao_AlterarSenha.pack(pady=6)
+
+        #================================================================
+        #Botao salvar
+        self.Botao_SalvarConfig=ctk.CTkButton(self.Conteudo_Config,text="Salvar configurações",text_color="black",fg_color="#E3E3E3",hover_color="#FFFFFF",width=400,height=50,corner_radius=25)
+        self.Botao_SalvarConfig.pack(pady=(10,0))
 
 #=================================================================================
 #=================================Acima front end=================================
@@ -714,6 +920,85 @@ class aplicativo(ctk.CTk):
 
         self.texto_direito=ctk.CTkLabel(self.Espaco,text=texto_direito,text_color="#777777",font=ctk.CTkFont(size=16))
         self.texto_direito.grid(row=0,column=3,sticky="w")
+
+    #Coluna dos LDRs no dashboard: titulo, subtitulo e separador
+    def ColunaLDR(self,coluna,titulo,subtitulo):
+        self.Coluna_LDR=ctk.CTkFrame(self.Colunas_LDR,fg_color="#E3E3E3",width=280,height=230)
+        self.Coluna_LDR.grid(row=0,column=coluna,padx=8)
+        self.Coluna_LDR.pack_propagate(False)
+
+        self.Titulo_ColunaLDR=ctk.CTkLabel(self.Coluna_LDR,text=titulo,font=ctk.CTkFont(size=20,family="Segoe UI",weight="bold"))
+        self.Titulo_ColunaLDR.pack(pady=(8,0))
+
+        self.SubTitulo_ColunaLDR=ctk.CTkLabel(self.Coluna_LDR,text=subtitulo,text_color="#787878",font=ctk.CTkFont(size=12))
+        self.SubTitulo_ColunaLDR.pack()
+
+        self.Separador_ColunaLDR=ctk.CTkFrame(self.Coluna_LDR,height=2,corner_radius=0,fg_color="#D0D0D0")
+        self.Separador_ColunaLDR.pack(fill="x",padx=15,pady=6)
+
+        return self.Coluna_LDR
+
+    #Linha de cada LDR: nome na esquerda e valor na direita (mesmo estilo do Status do Sistema)
+    def LinhaLDR(self,coluna,nome):
+        self.Linha_LDR=ctk.CTkFrame(coluna,fg_color="transparent")
+        self.Linha_LDR.pack(fill="x",padx=20,pady=2)
+
+        self.Nome_LDR=ctk.CTkLabel(self.Linha_LDR,text=nome,text_color="black",font=ctk.CTkFont(size=16))
+        self.Nome_LDR.pack(side="left")
+
+        self.Valor_LDR=ctk.CTkLabel(self.Linha_LDR,text="0",text_color="#777777",font=ctk.CTkFont(size=16))
+        self.Valor_LDR.pack(side="right")
+
+        return self.Valor_LDR
+
+    #Valor do INA219 no relatorio: nome em cima e valor embaixo
+    #retorno o label do valor para depois atualizar com os dados reais
+    def ValorIna(self,coluna,texto,valor):
+        self.Texto_ValorIna=ctk.CTkLabel(self.Valores_Ina,text=texto,text_color="#777777",font=ctk.CTkFont(size=13))
+        self.Texto_ValorIna.grid(row=0,column=coluna)
+
+        self.Numero_ValorIna=ctk.CTkLabel(self.Valores_Ina,text=valor,text_color="#292929",font=ctk.CTkFont(size=20,family="Segoe UI",weight="bold"))
+        self.Numero_ValorIna.grid(row=1,column=coluna)
+
+        return self.Numero_ValorIna
+
+    #Cartões, linhas e campos da tela de configurações
+    #Como os cartões e linhas se repetem, criei funções para nao ficar repetindo código
+
+    def cartao_Configuracao(self,linha,coluna,titulo):
+        self.Cartao=ctk.CTkFrame(self.Grade_Config,fg_color="#E3E3E3",width=440,height=240)
+        self.Cartao.grid(row=linha,column=coluna,padx=10,pady=10)
+        self.Cartao.pack_propagate(False)
+
+        self.Titulo_Cartao=ctk.CTkLabel(self.Cartao,text=titulo,font=ctk.CTkFont(size=20,family="Segoe UI",weight="bold"))
+        self.Titulo_Cartao.pack(pady=(10,0))
+
+        self.Separador_Cartao=ctk.CTkFrame(self.Cartao,height=2,corner_radius=0,fg_color="#D0D0D0")
+        self.Separador_Cartao.pack(fill="x",padx=15,pady=6)
+
+        return self.Cartao
+
+    def linha_Configuracao(self,cartao,texto):
+        self.Linha=ctk.CTkFrame(cartao,fg_color="transparent")
+        self.Linha.pack(fill="x",padx=20,pady=6)
+
+        self.Texto_Linha=ctk.CTkLabel(self.Linha,text=texto,text_color="black",font=ctk.CTkFont(size=16))
+        self.Texto_Linha.pack(side="left")
+
+        return self.Linha
+
+    def opcoes_Configuracao(self,linha,opcoes):
+        self.Opcoes=ctk.CTkOptionMenu(linha,values=opcoes,width=150,font=ctk.CTkFont(size=13),fg_color="#E9E9E9",button_color="#D0D0D0",button_hover_color="#FFFFFF",text_color="#292929",dropdown_fg_color="#E9E9E9",dropdown_hover_color="#FFFFFF",dropdown_text_color="#292929")
+        self.Opcoes.pack(side="right")
+
+        return self.Opcoes
+
+    def entrada_Configuracao(self,linha,valor_padrao):
+        self.Entrada=ctk.CTkEntry(linha,width=150,font=ctk.CTkFont(size=13),fg_color="#E9E9E9",text_color="#292929",border_width=0,justify="center")
+        self.Entrada.insert(0,valor_padrao)
+        self.Entrada.pack(side="right")
+
+        return self.Entrada
 
 #=================================================================================
 #=================================Acima Esteticas Extras==========================
@@ -800,6 +1085,14 @@ class aplicativo(ctk.CTk):
     def sair_conta(self):
             self.janela_principal.destroy()
             self.construir_login()
+
+    def abrir_Criar_Conta(self):
+        self.janela_login.destroy()
+        self.Criar_Conta()
+
+    def voltar_Login(self):
+        self.janela_criar_conta.destroy()
+        self.construir_login()
 
 
 janela=aplicativo()
